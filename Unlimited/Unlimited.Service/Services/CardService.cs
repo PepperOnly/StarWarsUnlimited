@@ -13,14 +13,14 @@ namespace Unlimited.Service.Services
       _cardRepository = cardRepository;
     }
 
-    public Task<bool> AddCardAsync(IEnumerable<Card> cards)
+    public async Task AddCardAsync(IEnumerable<Card> cards)
     {
-      throw new NotImplementedException();
+      await _cardRepository.AddCards(cards);
     }
 
-    public IEnumerable<Card> GetCards()
+    public async Task<IEnumerable<Card>> GetCardsAsync()
     {
-      return _cardRepository.GetAll();
+      return await _cardRepository.GetCardsAsync();
     }
   }
 }

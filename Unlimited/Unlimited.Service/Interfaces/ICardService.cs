@@ -4,7 +4,7 @@ namespace Unlimited.Service.Interfaces
 {
   public interface ICardService
   {
-    public IEnumerable<Card> GetCards();
-    public Task<bool> AddCardAsync(IEnumerable<Card> cards);
+    public Task<IEnumerable<Card>> GetCardsAsync();
+    public Task AddCardAsync(IEnumerable<Card> cards);
   }
 }

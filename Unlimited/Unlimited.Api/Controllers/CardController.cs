@@ -7,48 +7,59 @@ using Unlimited.Service.Interfaces;
 namespace Unlimited.Api.Controllers
 {
   /// <summary>
-  /// Card Controller to do basic crud operations on cards to get them into the sytem.
+  /// Card Controller to do basic crud operations on cards to get them into the system.
   /// </summary>
   [ApiVersion(1)]
   [Route("api/v{version:apiVersion}/[controller]")]
   [ApiController]
   public class CardController : ControllerBase
-  {
-    /// <summary>
-    /// Service to interact with cards within the system
-    /// </summary>
+  {    
     public readonly ICardService _cardService;
+    public readonly ILogger<CardController> _logger;
 
-    public CardController(ICardService cardService)
+    public CardController(ICardService cardService, ILogger<CardController> logger)
     {
       _cardService = cardService;
+      _logger = logger;
     }
 
     /// <summary>
-    /// Get Cards from the system
+    /// Adds card/s to the system.
     /// </summary>
-    /// <returns>Card/s</returns> 
+    /// <returns>Message</returns> 
     [MapToApiVersion(1)]
     [HttpPost]
     public async Task<IActionResult> AddCard(AddCardRequest request)
     {
       try
-      {        
-        var result = await _cardService.AddCardAsync(request.Cards); 
-
-        if (result)
-        {
-          return Ok(result); // Return 200 OK with the added card/s
-        }
-        else
-        {
-          return BadRequest("Failed to add card"); // Return 400 Bad Request if the card was not added successfully
-        }
+      {
+        await _cardService.AddCardAsync(request.Cards);
+        return Ok("Cards added successfully");
       }
       catch (Exception ex)
       {
-        // Log the exception
-        return StatusCode(500, "Internal server error"); // Return 500 Internal Server Error for any unhandled exception
+        _logger.LogError(ex, "Error adding cards");
+        return StatusCode(500, "Internal server error");
+      }
+    }
+
+    /// <summary>
+    /// Returns all cards in the system.
+    /// </summary>
+    /// <returns>Cards</returns>
+    [MapToApiVersion(1)]
+    [HttpGet]
+    public async Task<IActionResult> GetAllCards()
+    {
+      try
+      {
+        var result = await _cardService.GetCardsAsync();
+        return Ok(result);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Error adding cards");
+        return StatusCode(500, "Internal server error");
       }
     }
   }

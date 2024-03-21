@@ -44,5 +44,16 @@ namespace Unlimited.Repository.Repositories
         _dbContext.SaveChanges();
       }
     }
+
+    public async Task AddCards(IEnumerable<Card> cards)
+    {
+      _dbContext.Cards.AddRange(cards);
+      await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Card>> GetCardsAsync()
+    {
+      return await _dbContext.Cards.ToListAsync();
+    }
   }
 }
