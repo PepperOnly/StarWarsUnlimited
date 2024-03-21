@@ -1,0 +1,56 @@
+﻿using System.Text.Json.Serialization;
+
+namespace Enums
+{
+  [JsonConverter(typeof(JsonStringEnumConverter))]
+  public enum CardTrait
+  {
+    None = 0,
+    ARMOR = 1,
+    BOUNTY_HUNTER = 2,
+    CAPITAL_SHIP = 3,
+    CLONE = 4,
+    CONDITION = 5,
+    CREATURE = 6,
+    DISASTER = 7,
+    DROID = 8,
+    FIGHTER = 9,
+    FORCE = 10,
+    FRINGE = 11,
+    GAMBIT = 12,
+    HUTT = 13,
+    IMPERIAL = 14,
+    INNATE = 15,
+    INQUISITOR = 16,
+    ITEM = 17,
+    JAWA = 18,
+    JEDI = 19,
+    LAW = 20,
+    LEARNED = 21,
+    LIGHTSABER = 22,
+    MANDALORIAN = 23,
+    MODIFICATION = 24,
+    NEW_REPUBLIC = 25,
+    OFFICIAL = 26,
+    PLAN = 27,
+    REBEL = 28,
+    REPUBLIC = 29,
+    RESISTANCE = 30,
+    SEPARATIST = 31,
+    SITH = 32,
+    SPECTRE = 33,
+    SPEEDER = 34,
+    SUPPLY = 35,
+    TACTIC = 36,
+    TANK = 37,
+    TRANSPORT = 38,
+    TRICK = 39,
+    TROOPER = 40,
+    TWI_LEK = 41,
+    UNDERWORLD = 42,
+    VEHICLE = 43,
+    WALKER = 44,
+    WEAPON = 45,
+    WOOKIEE = 46
+  }
+}

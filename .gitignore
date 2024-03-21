@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Unlimited/.vs/Unlimited
+/Unlimited/Unlimited.Repository/bin/Debug/net8.0
+/Unlimited/Unlimited.Repository/obj
+/Unlimited/Unlimited.Service/bin/Debug/net8.0
+/Unlimited/Unlimited.Service/obj
+/Unlimited/.vs/ProjectEvaluation
+/Unlimited/Enums/obj
+/Unlimited/Models/obj
+/Unlimited/Enums/bin/Debug/net8.0
+/Unlimited/Models/bin/Debug/net8.0
+/Unlimited/Unlimited.Api/bin/Debug/net8.0
+/Unlimited/Unlimited.Api/obj
