@@ -28,7 +28,7 @@ namespace Models
     public string? BackText { get; set; }
     public string Rarity { get; set; }
     public bool Unique { get; set; }
-    public List<Dictionary<string, string>>? Keywords { get; set; }
+    public List<CardKeyword>? Keywords { get; set; }
     public string Artist { get; set; }
     public string FrontArt { get; set; }
     public string? BackArt { get; set; }

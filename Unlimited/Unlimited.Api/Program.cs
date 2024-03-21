@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
+using OfficialUnlimitedDBIntegration.Core;
 using Serilog;
 using System.Reflection;
 using Unlimited.Repository;
@@ -48,6 +49,8 @@ builder.Services.AddApiVersioning(options =>
 });
 
 //Add Services etc
+builder.Services.AddScoped<IApiClient, ApiClient>();
+builder.Services.AddScoped<IUnlimitedClient, UnlimitedClient>();
 builder.Services.AddScoped<ICardService, CardService>();
 
 builder.Services.AddScoped<ICardRepository, CardRepository>();
