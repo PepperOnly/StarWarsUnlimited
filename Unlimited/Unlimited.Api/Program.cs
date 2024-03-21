@@ -1,6 +1,6 @@
 using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Reflection;
 using Unlimited.Repository;
 using Unlimited.Repository.Interfaces;
@@ -22,6 +22,10 @@ builder.Services.AddSwaggerGen( options =>
   var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
   options.IncludeXmlComments(xmlPath);
 });
+
+//Add logging
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 //Add DBContext
 var connectionString = builder.Configuration.GetConnectionString("UnlimitedDbContext");
@@ -56,6 +60,13 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
+else
+{
+  app.UseExceptionHandler("/Error");
+}
+
+//Add support to logging request with SERILOG
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 

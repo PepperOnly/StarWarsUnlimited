@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using Unlimited.Api.Requests;
 using Unlimited.Service.Interfaces;
 
 namespace Unlimited.Api.Controllers
@@ -27,18 +29,26 @@ namespace Unlimited.Api.Controllers
     /// </summary>
     /// <returns>Card/s</returns> 
     [MapToApiVersion(1)]
-    [HttpGet]
-    public Task<IActionResult> GetCards()
+    [HttpPost]
+    public async Task<IActionResult> AddCard(AddCardRequest request)
     {
       try
-      {
-        // Implement your logic here        
-        return (Task<IActionResult>)_cardService.GetCards();
+      {        
+        var result = await _cardService.AddCardAsync(request.Cards); 
+
+        if (result)
+        {
+          return Ok(result); // Return 200 OK with the added card/s
+        }
+        else
+        {
+          return BadRequest("Failed to add card"); // Return 400 Bad Request if the card was not added successfully
+        }
       }
       catch (Exception ex)
       {
         // Log the exception
-        return null;
+        return StatusCode(500, "Internal server error"); // Return 500 Internal Server Error for any unhandled exception
       }
     }
   }

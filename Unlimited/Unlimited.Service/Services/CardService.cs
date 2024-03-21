@@ -13,6 +13,11 @@ namespace Unlimited.Service.Services
       _cardRepository = cardRepository;
     }
 
+    public Task<bool> AddCardAsync(IEnumerable<Card> cards)
+    {
+      throw new NotImplementedException();
+    }
+
     public IEnumerable<Card> GetCards()
     {
       return _cardRepository.GetAll();
