@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Unlimited.Api.Requests;
+using Unlimited.Service.Interfaces;
 
 namespace Unlimited.Api.Controllers
 {
@@ -11,11 +13,35 @@ namespace Unlimited.Api.Controllers
   [ApiController]
   public class CollectionController : ControllerBase
   {
-    public readonly ILogger<CardController> _logger;
+    private readonly ICollectionService _collectionService;
+    private readonly ILogger<CardController> _logger;
 
-    public CollectionController(ILogger<CardController> logger)
+    public CollectionController(ICollectionService collectionService, ILogger<CardController> logger)
     {
+      _collectionService = collectionService;
       _logger = logger;
+    }
+
+
+    /// <summary>
+    /// Adds specified card to Collection
+    /// </summary>
+    /// <returns></returns>
+    [MapToApiVersion(1)]
+    [HttpPost]
+    public async Task<IActionResult> AddCardToMyCollection(AddCardToCollectionRequest request)
+    {
+      try
+      {
+        //ToDO: AUTHENTICATION...
+        //await _collectionService.AddCardToMyCollectionAsync(request.Card);
+        return Ok($"Card added successfully");
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Error adding cards");
+        return StatusCode(500, "Internal server error");
+      }
     }
   }
 }

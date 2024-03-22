@@ -13,8 +13,8 @@ namespace Unlimited.Api.Controllers
   [ApiController]
   public class CardController : ControllerBase
   {    
-    public readonly ICardService _cardService;
-    public readonly ILogger<CardController> _logger;
+    private readonly ICardService _cardService;
+    private readonly ILogger<CardController> _logger;
 
     public CardController(ICardService cardService, ILogger<CardController> logger)
     {
