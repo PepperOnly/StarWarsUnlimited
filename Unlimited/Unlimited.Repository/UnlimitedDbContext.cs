@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Models;
 
 namespace Unlimited.Repository
@@ -14,5 +13,31 @@ namespace Unlimited.Repository
     }
 
     public DbSet<Card> Cards { get; set; }
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+
+      //Card
+      modelBuilder.Entity<Card>()
+    .Property(x => x.Cost)
+    .HasDefaultValue("0");
+
+      modelBuilder.Entity<Card>()
+    .Property(x => x.Power)
+    .HasDefaultValue("0");
+
+      modelBuilder.Entity<Card>()
+    .Property(x => x.HP)
+    .HasDefaultValue("0");
+
+      modelBuilder.Entity<Card>()
+    .Property(x => x.Subtitle)
+    .HasDefaultValue("None");
+
+      modelBuilder.Entity<Card>()
+          .HasKey(e => new { e.Set, e.Number });
+
+    }
   }
 }

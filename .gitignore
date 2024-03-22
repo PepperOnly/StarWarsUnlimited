@@ -15,3 +15,10 @@
 /Unlimited/Models/bin/Debug/net8.0
 /Unlimited/Unlimited.Api/bin/Debug/net8.0
 /Unlimited/Unlimited.Api/obj
+/Unlimited/OfficialUnlimitedDBIntegration/obj
+/Unlimited/OfficialUnlimitedDBIntegration/bin/Debug/net8.0
+/Unlimited/HelperFunctions/obj
+/Unlimited/HelperFunctions/bin/Debug/net8.0
+/Unlimited/Unlimited.Repository.Tests/bin/Debug/net8.0
+/Unlimited/Unlimited.Repository.Tests/obj/Debug/net8.0
+/Unlimited/Unlimited.Repository.Tests/obj

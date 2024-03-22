@@ -10,7 +10,7 @@ namespace Unlimited.Api.Controllers
   /// Card Controller to do basic crud operations on cards to get them into the system.
   /// </summary>
   [ApiVersion(1)]
-  [Route("api/v{version:apiVersion}/[controller]")]
+  [Route("api/v{version:apiVersion}/[controller]/[action]")]
   [ApiController]
   public class CardController : ControllerBase
   {    
@@ -33,13 +33,34 @@ namespace Unlimited.Api.Controllers
     {
       try
       {
-        await _cardService.AddCardAsync(request.Cards);
-        return Ok("Cards added successfully");
+        var cardsAdded = await _cardService.AddCardAsync(request.Cards);
+        return Ok($"{cardsAdded} cards added successfully");
       }
       catch (Exception ex)
       {
         _logger.LogError(ex, "Error adding cards");
         return StatusCode(500, "Internal server error");
+      }
+    }
+
+    /// <summary>
+    /// Imports cards into the system by set
+    /// </summary>
+    /// <param name="request">Set you want to import</param>
+    /// <returns>Message</returns>
+    [MapToApiVersion(1)]
+    [HttpPost]
+    public async Task<IActionResult> AddCardSet(AddCardSet request)
+    {
+      try
+      {
+        var importedCards = await _cardService.ImportCardsBySet(request.Set);
+        return Ok($"{importedCards} Cards added successfully");
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, $"Error importing cards, set: {request.Set}");
+        return StatusCode(500, $"Error importing cards, set: {request.Set}");
       }
     }
 

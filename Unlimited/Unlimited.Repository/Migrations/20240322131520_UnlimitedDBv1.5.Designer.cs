@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Unlimited.Repository;
@@ -11,9 +12,11 @@ using Unlimited.Repository;
 namespace Unlimited.Repository.Migrations
 {
     [DbContext(typeof(UnlimitedDbContext))]
-    partial class UnlimitedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240322131520_UnlimitedDBv1.5")]
+    partial class UnlimitedDBv15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
