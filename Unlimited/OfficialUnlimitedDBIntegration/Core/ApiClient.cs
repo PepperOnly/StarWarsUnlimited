@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace OfficialUnlimitedDBIntegration.Core
 {
@@ -22,7 +22,7 @@ namespace OfficialUnlimitedDBIntegration.Core
         if (response.IsSuccessStatusCode)
         {
           string responseData = await response.Content.ReadAsStringAsync();
-          TResponse responseObject = JsonSerializer.Deserialize<TResponse>(responseData);
+          TResponse responseObject = JsonConvert.DeserializeObject<TResponse>(responseData);
           return responseObject;
         }
         else

@@ -1,4 +1,6 @@
-﻿using Models;
+﻿using AutoMapper.Configuration;
+using HelperFunctions;
+using Models;
 using OfficialUnlimitedDBIntegration.Core;
 using Unlimited.Repository.Interfaces;
 using Unlimited.Service.Interfaces;
@@ -27,6 +29,11 @@ namespace Unlimited.Service.Services
       return await _cardRepository.GetCardsAsync();
     }
 
+    public async Task<IEnumerable<Card>> GetCardsBySet(string set)
+    {
+      return await _cardRepository.GetCardsBySet(set);
+    }
+
     public async Task<int> ImportCardsBySet(string set)
     {
       //Make magic
@@ -34,13 +41,24 @@ namespace Unlimited.Service.Services
       var cards = await _unlimitedClient.ImportCardSet(set);
 
       //Determine which need to be imported
+      var cardsToAdd = cards.ToList();
+      var cardsToRemove = await GetCardsBySet(set);
 
-      //Map objects
+      if (cardsToRemove != null)
+      {
+        //some cards already in the db
+        var comparer = new GenericEqualityComparer<Card>(
+        (x, y) => x.Set == y.Set && x.Number == y.Number,
+        obj => obj.Set.GetHashCode() ^ obj.Number.GetHashCode());
+
+        cardsToAdd = cardsToAdd.Except(cardsToRemove, comparer).ToList();
+      }
 
       //add range
+      await _cardRepository.AddCards(cardsToAdd);
 
       //return how many are added
-      return 0;
+      return cardsToAdd.Count;
     }
   }
 }

@@ -11,5 +11,6 @@ namespace Unlimited.Repository.Interfaces
     void Update(Card card);
     void Delete(Guid id);
     Task<IEnumerable<Card>> GetCardsAsync();
+    Task<IEnumerable<Card>> GetCardsBySet(string set);
   }
 }

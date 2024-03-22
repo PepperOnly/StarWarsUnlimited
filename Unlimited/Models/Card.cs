@@ -1,4 +1,5 @@
 ﻿using Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
@@ -8,15 +9,18 @@ namespace Models
     {
       Aspects = new List<CardAspect>();
       Traits = new List<CardTrait>();
-      Arenas = new List<CardArena>();      
+      Arenas = new List<CardArena>();
+      Keywords = new List<CardKeyword>();
     }
 
+    [Key]
     public CardSet Set { get; set; }
+    [Key]
     public string Number { get; set; }
     public string Name { get; set; }
     public string Subtitle { get; set; }
     public CardType Type { get; set; }
-    public List<CardAspect> Aspects { get; set; }
+    public List<CardAspect>? Aspects { get; set; }
     public List<CardTrait> Traits { get; set; }
     public List<CardArena> Arenas { get; set; }
     public string Cost { get; set; }

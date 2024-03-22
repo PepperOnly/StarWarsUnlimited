@@ -7,5 +7,6 @@ namespace Unlimited.Service.Interfaces
     public Task<IEnumerable<Card>> GetCardsAsync();
     public Task<int> AddCardAsync(IEnumerable<Card> cards);
     public Task<int> ImportCardsBySet(string set);
+    public Task<IEnumerable<Card>> GetCardsBySet(string set);
   }
 }

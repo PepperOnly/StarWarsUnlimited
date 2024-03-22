@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Enums;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using Unlimited.Repository.Interfaces;
 
@@ -54,6 +55,18 @@ namespace Unlimited.Repository.Repositories
     public async Task<IEnumerable<Card>> GetCardsAsync()
     {
       return await _dbContext.Cards.ToListAsync();
+    }
+
+    public async Task<IEnumerable<Card>> GetCardsBySet(string set)
+    {
+      if (Enum.TryParse(set, true, out CardSet wantedSet))
+      {
+        return await _dbContext.Cards.Where(x => x.Set == wantedSet).ToListAsync();
+      }
+      else
+      {
+        throw new Exception($"No Set found matching {set}.");
+      }
     }
   }
 }

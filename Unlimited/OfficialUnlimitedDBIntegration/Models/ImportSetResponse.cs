@@ -2,7 +2,7 @@
 {
   public class ImportSetResponse
   {
-    public int TotalCards { get; set; }
+    public int Total_Cards { get; set; }
     public IEnumerable<ImportedCard> Data { get; set; }
   }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Unlimited.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCard : Migration
+    public partial class UnlimitedDBv1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +15,6 @@ namespace Unlimited.Repository.Migrations
                 name: "Cards",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Set = table.Column<int>(type: "integer", nullable: false),
                     Number = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
@@ -34,14 +32,15 @@ namespace Unlimited.Repository.Migrations
                     BackText = table.Column<string>(type: "text", nullable: true),
                     Rarity = table.Column<string>(type: "text", nullable: false),
                     Unique = table.Column<bool>(type: "boolean", nullable: false),
-                    Keywords = table.Column<List<Dictionary<string, string>>>(type: "hstore[]", nullable: true),
+                    Keywords = table.Column<int[]>(type: "integer[]", nullable: true),
                     Artist = table.Column<string>(type: "text", nullable: false),
                     FrontArt = table.Column<string>(type: "text", nullable: false),
-                    BackArt = table.Column<string>(type: "text", nullable: true)
+                    BackArt = table.Column<string>(type: "text", nullable: true),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cards", x => x.Id);
+                    table.PrimaryKey("PK_Cards", x => new { x.Set, x.Number });
                 });
         }
 

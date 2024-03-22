@@ -18,19 +18,19 @@ namespace OfficialUnlimitedDBIntegration.Helpers
           Name = importedCard.Name,
           Subtitle = importedCard.Subtitle,
           Type = StringToEnum<CardType>(importedCard.Type),
-          Aspects = importedCard.Aspects.Select(aspect => new CardAspect()).ToList(),
-          Traits = importedCard.Traits.Select(trait => new CardTrait()).ToList(),
-          Arenas = importedCard.Arenas.Select(arena => new CardArena()).ToList(),
+          Aspects = importedCard.Aspects?.Select(aspectStr => StringToEnum<CardAspect>(aspectStr)).ToList(),
+          Traits = importedCard.Traits.Select(traitStr => StringToEnum<CardTrait>(traitStr)).ToList(),
+          Arenas = importedCard.Arenas.Select(arenaStr => StringToEnum<CardArena>(arenaStr)).ToList(),
           Cost = importedCard.Cost,
           Power = importedCard.Power,
           HP = importedCard.HP,
           FrontText = importedCard.FrontText,
           EpicAction = importedCard.EpicAction,
-          DoubleSided = importedCard.DoubleSided,
+          DoubleSided = importedCard.DoubleSided??false,
           BackText = importedCard.BackText,
           Rarity = importedCard.Rarity,
-          Unique = importedCard.Unique,
-          Keywords = importedCard.Keywords?.Select(keyword => new CardKeyword()).ToList(),
+          Unique = importedCard.Unique??false,
+          Keywords = importedCard.Keywords?.Select(keywordStr => StringToEnum<CardKeyword>(keywordStr)).ToList(),
           Artist = importedCard.Artist,
           FrontArt = importedCard.FrontArt,
           BackArt = importedCard.BackArt
@@ -68,6 +68,8 @@ namespace OfficialUnlimitedDBIntegration.Helpers
 
     public static TEnum StringToEnum<TEnum>(string input, bool ignorecase = true) where TEnum : struct
     {
+      input = input.Replace(" ", "_");
+      input = input.Replace("'", "_");
       if (Enum.TryParse(input, ignorecase, out TEnum result))
       {
         return result;

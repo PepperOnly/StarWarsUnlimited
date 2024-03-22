@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Unlimited.Repository;
@@ -11,9 +12,11 @@ using Unlimited.Repository;
 namespace Unlimited.Repository.Migrations
 {
     [DbContext(typeof(UnlimitedDbContext))]
-    partial class UnlimitedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240322105153_UnlimitedDBv1")]
+    partial class UnlimitedDBv1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +42,7 @@ namespace Unlimited.Repository.Migrations
                         .HasColumnType("text");
 
                     b.Property<int[]>("Aspects")
+                        .IsRequired()
                         .HasColumnType("integer[]");
 
                     b.Property<string>("BackArt")
@@ -49,9 +53,7 @@ namespace Unlimited.Repository.Migrations
 
                     b.Property<string>("Cost")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("0");
+                        .HasColumnType("text");
 
                     b.Property<bool>("DoubleSided")
                         .HasColumnType("boolean");
@@ -68,9 +70,7 @@ namespace Unlimited.Repository.Migrations
 
                     b.Property<string>("HP")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("0");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -84,9 +84,7 @@ namespace Unlimited.Repository.Migrations
 
                     b.Property<string>("Power")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("0");
+                        .HasColumnType("text");
 
                     b.Property<string>("Rarity")
                         .IsRequired()
@@ -94,9 +92,7 @@ namespace Unlimited.Repository.Migrations
 
                     b.Property<string>("Subtitle")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("None");
+                        .HasColumnType("text");
 
                     b.Property<int[]>("Traits")
                         .IsRequired()
