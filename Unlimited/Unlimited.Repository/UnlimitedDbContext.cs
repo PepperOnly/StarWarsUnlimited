@@ -13,6 +13,9 @@ namespace Unlimited.Repository
     }
 
     public DbSet<Card> Cards { get; set; }
+    public DbSet<Collection> Collections { get; set; }
+    public DbSet<CollectionCard> CollectionCards { get; set; }
+    public DbSet<User> Users { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

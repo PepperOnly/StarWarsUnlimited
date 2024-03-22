@@ -10,7 +10,7 @@ namespace Unlimited.Repository.Tests
   public class CardRepositoryTests
   {
     [Test]
-    public void GetAll_ReturnsAllCards()
+    public async Task GetAll_ReturnsAllCards()
     {
       // Arrange
       var cards = new List<Card>
@@ -35,10 +35,10 @@ namespace Unlimited.Repository.Tests
         var repository = new CardRepository(context);
 
         // Act
-        var result = repository.GetAll();
+        var result = await repository.GetAll();
 
         // Assert
-        result.Should().HaveCount(3);
+        result.ToList().Count().Should().Be(3);
       }
     }
 

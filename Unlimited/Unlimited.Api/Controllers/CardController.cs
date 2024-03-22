@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Unlimited.Api.Requests;
 using Unlimited.Service.Interfaces;
 
@@ -14,8 +13,8 @@ namespace Unlimited.Api.Controllers
   [ApiController]
   public class CardController : ControllerBase
   {    
-    public readonly ICardService _cardService;
-    public readonly ILogger<CardController> _logger;
+    private readonly ICardService _cardService;
+    private readonly ILogger<CardController> _logger;
 
     public CardController(ICardService cardService, ILogger<CardController> logger)
     {
@@ -33,8 +32,8 @@ namespace Unlimited.Api.Controllers
     {
       try
       {
-        var cardsAdded = await _cardService.AddCardAsync(request.Cards);
-        return Ok($"{cardsAdded} cards added successfully");
+        await _cardService.AddRange(request.Cards);
+        return Ok($"Cards added successfully");
       }
       catch (Exception ex)
       {
@@ -74,7 +73,7 @@ namespace Unlimited.Api.Controllers
     {
       try
       {
-        var result = await _cardService.GetCardsAsync();
+        var result = await _cardService.GetAll();
         return Ok(result);
       }
       catch (Exception ex)

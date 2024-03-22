@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OfficialUnlimitedDBIntegration.Core;
 using Serilog;
 using System.Reflection;
+using Unlimited.Api;
 using Unlimited.Repository;
 using Unlimited.Repository.Interfaces;
 using Unlimited.Repository.Repositories;
@@ -49,11 +50,9 @@ builder.Services.AddApiVersioning(options =>
 });
 
 //Add Services etc
-builder.Services.AddScoped<IApiClient, ApiClient>();
-builder.Services.AddScoped<IUnlimitedClient, UnlimitedClient>();
-builder.Services.AddScoped<ICardService, CardService>();
-
-builder.Services.AddScoped<ICardRepository, CardRepository>();
+builder.Services.AddCustomRepositories();
+builder.Services.AddCustomServices();
+builder.Services.AddCustomIntegrations();
 
 var app = builder.Build();
 
