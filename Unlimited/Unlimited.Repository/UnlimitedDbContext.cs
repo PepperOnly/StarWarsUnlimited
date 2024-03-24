@@ -7,7 +7,7 @@ namespace Unlimited.Repository
   {
     private readonly DbContextOptions _options;
 
-    public UnlimitedDbContext(DbContextOptions options) : base(options)
+    public UnlimitedDbContext(DbContextOptions<UnlimitedDbContext> options) : base(options)
     {
       _options = options;
     }
