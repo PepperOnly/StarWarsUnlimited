@@ -1,4 +1,6 @@
-﻿using OfficialUnlimitedDBIntegration.Core;
+﻿using ApiAuth.Interfaces;
+using ApiAuth.Services;
+using OfficialUnlimitedDBIntegration.Core;
 using Unlimited.Repository.Interfaces;
 using Unlimited.Repository.Repositories;
 using Unlimited.Service.Interfaces;
@@ -12,6 +14,7 @@ namespace Unlimited.Api
     {
       services.AddScoped<IApiClient, ApiClient>();
       services.AddScoped<IUnlimitedClient, UnlimitedClient>();
+      services.AddScoped<IUserAuthService, UserAuthService>();
     }
 
     public static void AddCustomServices(this IServiceCollection services)
