@@ -22,3 +22,5 @@
 /Unlimited/Unlimited.Repository.Tests/bin/Debug/net8.0
 /Unlimited/Unlimited.Repository.Tests/obj/Debug/net8.0
 /Unlimited/Unlimited.Repository.Tests/obj
+/Unlimited/ApiAuth/obj
+/Unlimited/ApiAuth/bin

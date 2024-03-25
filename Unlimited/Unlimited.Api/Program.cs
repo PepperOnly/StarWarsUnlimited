@@ -1,14 +1,13 @@
+using ApiAuth;
+using ApiAuth.Helpers;
+using ApiAuth.Models;
 using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
-using OfficialUnlimitedDBIntegration.Core;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
 using Unlimited.Api;
 using Unlimited.Repository;
-using Unlimited.Repository.Interfaces;
-using Unlimited.Repository.Repositories;
-using Unlimited.Service.Interfaces;
-using Unlimited.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,22 +16,56 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen( options =>
+builder.Services.AddSwaggerGen(options =>
 {
+  //Auth
+  options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+  {
+    Name = "Authorization",
+    Type = SecuritySchemeType.ApiKey,
+    Scheme = "Bearer",
+    BearerFormat = "JWT",
+    In = ParameterLocation.Header,
+    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+  });
+  options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+
+                    }
+                });
+
+
   // Add support for XML comments
   var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
   var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
   options.IncludeXmlComments(xmlPath);
 });
 
+//Settings for Auth
+builder.Services.Configure<AppSettingsAuth>(builder.Configuration.GetSection("AppSettingsAuth"));
+
 //Add logging
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
 //Add DBContext
-var connectionString = builder.Configuration.GetConnectionString("UnlimitedDbContext");
+var connectionStringAuth = builder.Configuration.GetConnectionString("AuthDbContext");
+var connectionStringUnlimited = builder.Configuration.GetConnectionString("UnlimitedDbContext");
+builder.Services.AddDbContext<AuthDbContext>(options =>
+    options.UseNpgsql(connectionStringAuth));
 builder.Services.AddDbContext<UnlimitedDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(connectionStringUnlimited));
+
 
 //Api Versioning
 builder.Services.AddApiVersioning(options =>
@@ -72,6 +105,8 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
+//Auth
+app.UseMiddleware<JwtMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();

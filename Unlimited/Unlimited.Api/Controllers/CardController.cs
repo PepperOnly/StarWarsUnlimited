@@ -1,4 +1,5 @@
-﻿using Asp.Versioning;
+﻿using ApiAuth.Helpers;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Unlimited.Api.Requests;
 using Unlimited.Service.Interfaces;
@@ -49,6 +50,7 @@ namespace Unlimited.Api.Controllers
     /// <returns>Message</returns>
     [MapToApiVersion(1)]
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> AddCardSet(AddCardSet request)
     {
       try
