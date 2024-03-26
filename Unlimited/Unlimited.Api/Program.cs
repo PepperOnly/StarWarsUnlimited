@@ -15,7 +15,6 @@ builder.Services.AddControllers();
 builder.Services.ConfigureSwagger(builder.Configuration);
 //Settings for Auth
 builder.Services.Configure<AuthenticationSettings>(builder.Configuration.GetSection("AuthenticationSettings"));
-builder.Services.ConfigureAuthentication(builder.Configuration);
 
 // Add logging
 builder.Host.UseSerilog((context, configuration) =>
