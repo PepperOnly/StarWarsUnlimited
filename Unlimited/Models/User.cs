@@ -1,8 +1,10 @@
-﻿namespace Models
+﻿using ApiAuth.Models;
+
+namespace Models
 {
   public class User : BaseModel
   {
-    public string Name { get; set; }    
+    public UserAuth Auth { get; set; }    
     public string Email { get; set; }
   }
 }

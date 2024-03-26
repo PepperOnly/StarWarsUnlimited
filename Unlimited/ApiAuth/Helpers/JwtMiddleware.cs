@@ -12,10 +12,10 @@ namespace ApiAuth.Helpers
   public class JwtMiddleware
   {
     private readonly RequestDelegate _next;
-    private readonly AppSettingsAuth _appSettingsAuth;
+    private readonly AuthenticationSettings _appSettingsAuth;
     private readonly ILogger<JwtMiddleware> _logger;
 
-    public JwtMiddleware(RequestDelegate next, IOptions<AppSettingsAuth> appSettings, ILogger<JwtMiddleware> logger)
+    public JwtMiddleware(RequestDelegate next, IOptions<AuthenticationSettings> appSettings, ILogger<JwtMiddleware> logger)
     {
       _next = next;
       _appSettingsAuth = appSettings.Value;

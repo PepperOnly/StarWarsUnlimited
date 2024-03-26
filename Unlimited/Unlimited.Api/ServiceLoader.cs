@@ -15,6 +15,7 @@ namespace Unlimited.Api
       services.AddScoped<IApiClient, ApiClient>();
       services.AddScoped<IUnlimitedClient, UnlimitedClient>();
       services.AddScoped<IUserAuthService, UserAuthService>();
+      services.AddScoped<IAuthorizationSettingsService, AuthorizationSettingsService>();
     }
 
     public static void AddCustomServices(this IServiceCollection services)
@@ -22,6 +23,7 @@ namespace Unlimited.Api
       services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
       services.AddScoped<ICardService, CardService>();
       services.AddScoped<ICollectionService, CollectionService>();
+      services.AddScoped<IUserService, UserService>();
     }
 
     public static void AddCustomRepositories(this IServiceCollection services)
@@ -29,6 +31,7 @@ namespace Unlimited.Api
       services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
       services.AddScoped<ICardRepository, CardRepository>();
       services.AddScoped<ICollectionRepository, CollectionRepository>();
+      services.AddScoped<IUserRepository, UserRepository>();
     }
   }
 }

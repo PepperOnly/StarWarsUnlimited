@@ -11,10 +11,10 @@ namespace ApiAuth.Services
 {
   public class UserAuthService : IUserAuthService
   {
-    private readonly AppSettingsAuth _appSettingsAuth;
+    private readonly AuthenticationSettings _appSettingsAuth;
     private readonly AuthDbContext _authDbContext;
 
-    public UserAuthService(IOptions<AppSettingsAuth> appSettings, AuthDbContext _db)
+    public UserAuthService(IOptions<AuthenticationSettings> appSettings, AuthDbContext _db)
     {
       _appSettingsAuth = appSettings.Value;
       _authDbContext = _db;
