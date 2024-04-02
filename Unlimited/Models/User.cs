@@ -4,7 +4,7 @@ namespace Models
 {
   public class User : BaseModel
   {
-    public UserAuth Auth { get; set; }    
+    public int AuthId { get; set; } // Foreign key to UserAuth in another database    
     public string Email { get; set; }
   }
 }

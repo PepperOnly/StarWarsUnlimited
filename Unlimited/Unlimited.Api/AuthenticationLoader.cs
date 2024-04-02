@@ -1,7 +1,4 @@
 ﻿using ApiAuth.Helpers;
-using ApiAuth.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Unlimited.Api
 {

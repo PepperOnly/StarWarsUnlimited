@@ -6,5 +6,6 @@ namespace Unlimited.Service.Interfaces
   {    
     public Task<int> ImportCardsBySet(string set);
     public Task<IEnumerable<Card>> GetCardsBySet(string set);
+    public Task<Card> GetCardByNumberAndSet(string number, int set);
   }
 }

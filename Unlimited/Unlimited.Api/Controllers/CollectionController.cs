@@ -26,6 +26,27 @@ namespace Unlimited.Api.Controllers
       _logger = logger;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [MapToApiVersion(1)]
+    [HttpPost]
+    [CustomAuthorize]
+    public async Task<IActionResult> UpdateCardInCollection(UpdateCardInCollectionRequest request)
+    {
+      try
+      {
+        return null;
+      }
+      catch (Exception ex)
+      {
+        // Handle other exceptions
+        _logger.LogError(ex, "Error adding cards");
+        return StatusCode(500, "Internal server error");
+      }
+    }
 
     /// <summary>
     /// Adds a specified card to the authenticated user's collection.
@@ -57,7 +78,7 @@ namespace Unlimited.Api.Controllers
         // Add the card to the user's collection
         var result = await _collectionService.AddCardToCollection(appUser.Id, collectionId,
                                                                   request.Number, (int)request.CardSet,
-                                                                  (int)request.CardType, request.Quantity);
+                                                                  (int)request.CardMake, request.Quantity);
 
         if (result)
         {
@@ -69,13 +90,7 @@ namespace Unlimited.Api.Controllers
           // Return error message if card addition failed
           return BadRequest("Failed to add card to collection");
         }
-      }
-      catch (FormatException ex)
-      {
-        // Handle format exception (e.g., invalid user ID)
-        _logger.LogError(ex, "Error parsing user ID");
-        return BadRequest("Invalid user ID format");
-      }
+      }      
       catch (Exception ex)
       {
         // Handle other exceptions

@@ -169,17 +169,24 @@ namespace Unlimited.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("AuthId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("4409c495-2995-48f3-ac08-0a126bd07042"),
+                            AuthId = 1,
+                            Email = "admin@unlimited.co.za"
+                        });
                 });
 
             modelBuilder.Entity("Models.Collection", b =>

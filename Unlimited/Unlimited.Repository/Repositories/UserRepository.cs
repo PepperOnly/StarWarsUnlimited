@@ -15,7 +15,7 @@ namespace Unlimited.Repository.Repositories
 
     public async Task<User?> GetByAuthenticatedUser(int userId)
     {
-      return await _dbContext.Users.FirstOrDefaultAsync(x => x.Auth.Id == userId);
+      return await _dbContext.Users.FirstOrDefaultAsync(x => x.AuthId == userId);
     }
   }
 }

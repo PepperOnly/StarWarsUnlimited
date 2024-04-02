@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ApiAuth.Models;
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace Unlimited.Repository
@@ -20,7 +21,6 @@ namespace Unlimited.Repository
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
       //Card
       modelBuilder.Entity<Card>()
     .Property(x => x.Cost)
@@ -39,8 +39,15 @@ namespace Unlimited.Repository
     .HasDefaultValue("None");
 
       modelBuilder.Entity<Card>()
-          .HasKey(e => new { e.Set, e.Number });
+          .HasKey(e => new { e.Set, e.Number });      
 
+      modelBuilder.Entity<User>().HasData(
+                 new User
+                 {
+                   AuthId = 1,                   
+                   Email = "admin@unlimited.co.za"
+                 }
+             );
     }
   }
 }

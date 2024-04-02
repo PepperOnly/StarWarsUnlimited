@@ -16,8 +16,8 @@ namespace Unlimited.Repository.Tests
       var cards = new List<Card>
             {
                 new Card { Id = Guid.NewGuid(), Set = Enums.CardSet.SOR, Number = "001", Artist ="Picaso", Cost = "5", FrontArt ="www.art.co.za/123.png", HP = "7", Name = "Vader", Power = "10", Rarity = "R", Subtitle = "DarkSIde" },
-                new Card { Id = Guid.NewGuid(), Set = Enums.CardSet.SOG, Number = "001", Artist ="Picaso", Cost = "5", FrontArt ="www.art.co.za/123.png", HP = "7", Name = "Vader", Power = "10", Rarity = "R", Subtitle = "DarkSIde" },
-                new Card { Id = Guid.NewGuid(), Set = Enums.CardSet.TOR, Number = "002", Artist ="Picaso", Cost = "5", FrontArt ="www.art.co.za/123.png", HP = "7", Name = "Vader", Power = "10", Rarity = "R", Subtitle = "DarkSIde"}
+                new Card { Id = Guid.NewGuid(), Set = Enums.CardSet.SOROP, Number = "001", Artist ="Picaso", Cost = "5", FrontArt ="www.art.co.za/123.png", HP = "7", Name = "Vader", Power = "10", Rarity = "R", Subtitle = "DarkSIde" },
+                new Card { Id = Guid.NewGuid(), Set = Enums.CardSet.SOR, Number = "002", Artist ="Picaso", Cost = "5", FrontArt ="www.art.co.za/123.png", HP = "7", Name = "Vader", Power = "10", Rarity = "R", Subtitle = "DarkSIde"}
             };
 
       var options = new DbContextOptionsBuilder<UnlimitedDbContext>()

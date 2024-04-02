@@ -6,7 +6,6 @@ namespace Enums
   public enum CardSet
   {
     SOR = 1,
-    SOG = 2,
-    TOR = 3
+    SOROP = 2    
   }
 }

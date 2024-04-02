@@ -1,4 +1,5 @@
-﻿using HelperFunctions;
+﻿using Enums;
+using HelperFunctions;
 using Models;
 using OfficialUnlimitedDBIntegration.Core;
 using Unlimited.Repository.Interfaces;
@@ -15,7 +16,12 @@ namespace Unlimited.Service.Services
     {
       _cardRepository = cardRepository;
       _unlimitedClient = unlimitedClient;
-    }    
+    }
+
+    public async Task<Card> GetCardByNumberAndSet(string number, int set)
+    {      
+      return await _cardRepository.GetCardByNumberAndSet(number, (CardSet)set);
+    }
 
     public async Task<IEnumerable<Card>> GetCardsBySet(string set)
     {
