@@ -24,3 +24,9 @@
 /Unlimited/Unlimited.Repository.Tests/obj
 /Unlimited/ApiAuth/obj
 /Unlimited/ApiAuth/bin/Debug/net8.0
+/Unlimited/ApiHelper/bin/Debug/net8.0
+/Unlimited/ApiHelper/obj
+/Unlimited/CurrencyApiIntegration/bin/Debug/net8.0
+/Unlimited/CurrencyApiIntegration/obj
+/Unlimited/FinancialHelper/bin/Debug/net8.0
+/Unlimited/FinancialHelper/obj
