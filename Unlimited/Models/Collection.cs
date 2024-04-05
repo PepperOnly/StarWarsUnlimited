@@ -7,7 +7,9 @@
       Cards = new List<CollectionCard>();
     }
 
-    public User Owner { get; set; }
+    public Guid UserId { get; set; }
+
+    //Navigation
     public List<CollectionCard> Cards { get; set; }
   }
 }

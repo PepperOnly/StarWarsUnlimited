@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace OfficialUnlimitedDBIntegration.Core
+namespace ApiHelper.Core
 {
   public class ApiClient : IApiClient
   {

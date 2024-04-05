@@ -4,14 +4,14 @@ namespace Models
 {
   public class CollectionCard : BaseModel
   {
-    public CollectionCard()
-    {
-      Card = new Card();
-    }
-
-    public Card Card { get; set; }
+    public Guid CardId { get; set; }
+    public Guid CollectionId { get; set; }
     public int Quantity { get; set; }
     public decimal? Value { get; set; }
-    public CardMake CardMake { get; set; }
+
+
+    //Navigation
+    public Collection Collection { get; set; }
+    public Card Card { get; set; }
   }
 }

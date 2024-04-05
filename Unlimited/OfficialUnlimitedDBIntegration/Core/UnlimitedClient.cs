@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ApiHelper.Core;
+using Microsoft.Extensions.Logging;
 using Models;
 using OfficialUnlimitedDBIntegration.Config;
 using OfficialUnlimitedDBIntegration.Helpers;
@@ -17,7 +18,7 @@ namespace OfficialUnlimitedDBIntegration.Core
       _logger = logger;
     }
 
-    public async Task<IEnumerable<Card>> ImportCardSet(string set)
+    public async Task<IEnumerable<Card>> GetCardSet(string set)
     {
       // TODO: Get cards from star wars unlimted DB and return them in a format we understand.
       var url = UnlimitedDBApiUrls.BASEURL + UnlimitedDBApiUrls.CARDS + set;

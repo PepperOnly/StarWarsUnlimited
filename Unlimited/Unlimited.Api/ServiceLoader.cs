@@ -1,5 +1,7 @@
 ﻿using ApiAuth.Interfaces;
 using ApiAuth.Services;
+using ApiHelper.Core;
+using CurrencyApiIntegration.Core;
 using OfficialUnlimitedDBIntegration.Core;
 using Unlimited.Repository.Interfaces;
 using Unlimited.Repository.Repositories;
@@ -14,6 +16,7 @@ namespace Unlimited.Api
     {
       services.AddScoped<IApiClient, ApiClient>();
       services.AddScoped<IUnlimitedClient, UnlimitedClient>();
+      services.AddScoped<ICurrencyClient, CurrencyClient>();
       services.AddScoped<IUserAuthService, UserAuthService>();
       services.AddScoped<IAuthorizationSettingsService, AuthorizationSettingsService>();
     }
@@ -23,6 +26,7 @@ namespace Unlimited.Api
       services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
       services.AddScoped<ICardService, CardService>();
       services.AddScoped<ICollectionService, CollectionService>();
+      services.AddScoped<ICurrencyService, CurrencyService>();
       services.AddScoped<IUserService, UserService>();
     }
 
@@ -31,6 +35,7 @@ namespace Unlimited.Api
       services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
       services.AddScoped<ICardRepository, CardRepository>();
       services.AddScoped<ICollectionRepository, CollectionRepository>();
+      services.AddScoped<ICurrencyRepository, CurrencyRepository>();
       services.AddScoped<IUserRepository, UserRepository>();
     }
   }

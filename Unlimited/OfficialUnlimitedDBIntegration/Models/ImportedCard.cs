@@ -31,5 +31,7 @@
     public string Artist { get; set; }
     public string FrontArt { get; set; }
     public string? BackArt { get; set; }
+    public string VariantType { get; set; }
+    public decimal? MarketPrice { get; set; }
   }
 }

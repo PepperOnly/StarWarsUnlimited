@@ -60,23 +60,25 @@ namespace Unlimited.Api.Controllers
     {
       try
       {
-        // Extract the user ID from the JWT claims
-        var loggedInUserId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        //// Extract the user ID from the JWT claims
+        //var loggedInUserId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        // Retrieve the user from the system database using the identifier
-        var appUser = await _userService.GetByAuthenticatedUser(loggedInUserId);
+        //// Retrieve the user from the system database using the identifier
+        //var appUser = await _userService.GetByAuthenticatedUser(loggedInUserId);
 
-        if (appUser == null)
-        {
-          // If user not found, return unauthorized status
-          return Unauthorized();
-        }
+        //if (appUser == null)
+        //{
+        //  // If user not found, return unauthorized status
+        //  return Unauthorized();
+        //}
+
+        var userId = request.UserId;
 
         // Get the collection ID of the authenticated user
-        var collectionId = await _collectionService.GetCollectionIdByUserId(appUser.Id);
+        var collectionId = await _collectionService.GetCollectionIdByUserId(userId);        
 
         // Add the card to the user's collection
-        var result = await _collectionService.AddCardToCollection(appUser.Id, collectionId,
+        var result = await _collectionService.AddCardToCollection(userId, collectionId,
                                                                   request.Number, (int)request.CardSet,
                                                                   (int)request.CardMake, request.Quantity);
 

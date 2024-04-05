@@ -1,4 +1,6 @@
-﻿namespace Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Models
 {
   public abstract class BaseModel
   {
@@ -6,6 +8,8 @@
     {
       Id = Guid.NewGuid();
     }
+
+    [Key]
     public Guid Id { get; set; }
   }
 }

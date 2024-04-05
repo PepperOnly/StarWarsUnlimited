@@ -8,7 +8,7 @@ namespace Unlimited.Service.Services
   public class CollectionService : BaseService<Collection>, ICollectionService
   {
     private readonly ICollectionRepository _collectionRepository;
-    private readonly ICardService _cardService;
+    private readonly ICardService _cardService;    
 
     public CollectionService(ICollectionRepository collectionRepository, ICardService cardService) : base(collectionRepository)
     {
@@ -25,13 +25,13 @@ namespace Unlimited.Service.Services
 
       var cardToAdd = new CollectionCard()
       {
-        Card = card,
-        CardMake = (CardMake)cardMake,
-        Quantity = quantity
+        CardId = card.Id,
+        CollectionId = collectionId,
+        Quantity = quantity        
       };
 
       //Make sure card doesnt already exist in collection
-      var existInCollection = await DoesCardExistInCollection(collectionId, number, cardSet);
+      var existInCollection = await DoesCardExistInCollection(collectionId, card.Id);
 
       if (!existInCollection)
       {
@@ -46,14 +46,30 @@ namespace Unlimited.Service.Services
       return result;
     }
 
-    public async Task<bool> DoesCardExistInCollection(Guid CollectionId, string number, int cardSet)
+    public async Task<bool> DoesCardExistInCollection(Guid collectionId, Guid cardId)
     {
-      return await _collectionRepository.DoesCardExistInCollection(CollectionId, number, cardSet);
+      return await _collectionRepository.DoesCardExistInCollection(collectionId, cardId);
     }
 
     public async Task<Guid> GetCollectionIdByUserId(Guid userId)
     {
       return await _collectionRepository.GetCollectionIdByUserId(userId);
+    }
+
+    public async Task UpdateCollectionValue(Guid collectionId)
+    {
+      //var collection = await _collectionRepository.GetById(collectionId);
+
+      //foreach (var card in collection.Cards)
+      //{
+      //  //Convert To Rand from USD
+      //  double.TryParse(card.Card.MarketPrice, out double usd);
+
+      //  card.Value = card.Card.MarketPrice;
+      //}
+
+      ////update db
+      //await _collectionRepository.Update(collection);
     }
   }
 }

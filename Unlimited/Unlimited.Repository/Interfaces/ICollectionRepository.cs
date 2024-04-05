@@ -6,6 +6,6 @@ namespace Unlimited.Repository.Interfaces
   {
     public Task<Guid> GetCollectionIdByUserId(Guid userId);
     public Task<bool> AddCardToCollection(Guid collectionId, CollectionCard cardToAdd);
-    Task<bool> DoesCardExistInCollection(Guid collectionId, string number, int cardSet);
+    Task<bool> DoesCardExistInCollection(Guid collectionId, Guid cardId);
   }
 }

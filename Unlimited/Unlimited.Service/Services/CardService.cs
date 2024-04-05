@@ -19,7 +19,7 @@ namespace Unlimited.Service.Services
     }
 
     public async Task<Card> GetCardByNumberAndSet(string number, int set)
-    {      
+    {
       return await _cardRepository.GetCardByNumberAndSet(number, (CardSet)set);
     }
 
@@ -32,7 +32,7 @@ namespace Unlimited.Service.Services
     {
       //Make magic
       //Get cards
-      var cards = await _unlimitedClient.ImportCardSet(set);
+      var cards = await _unlimitedClient.GetCardSet(set);
 
       //Determine which need to be imported
       var cardsToAdd = cards.ToList();
@@ -53,6 +53,56 @@ namespace Unlimited.Service.Services
 
       //return how many are added
       return cardsToAdd.Count;
+    }
+
+    public async Task<int> UpdateCardsBySet(string set)
+    {
+      var cardsToUpdate = new List<Card>();
+
+      // Get cards from the external API
+      var cardsFromApi = (await _unlimitedClient.GetCardSet(set)).ToList();
+
+      // Get cards from the database
+      var cardsInDb = (await GetCardsBySet(set)).ToList();
+
+      // Iterate through cards from API and update matching cards in the database
+      foreach (var cardFromApi in cardsFromApi)
+      {
+        var cardInDb = cardsInDb.FirstOrDefault(x => x.Number == cardFromApi.Number && x.Set == cardFromApi.Set);
+
+        if (cardInDb != null)
+        {
+          // Update card properties
+          cardInDb.Name = cardFromApi.Name;
+          cardInDb.Subtitle = cardFromApi.Subtitle ?? "None";
+          cardInDb.Type = cardFromApi.Type;
+          cardInDb.Aspects = cardFromApi.Aspects;
+          cardInDb.Traits = cardFromApi.Traits;
+          cardInDb.Arenas = cardFromApi.Arenas;
+          cardInDb.Cost = cardFromApi.Cost ?? "0";
+          cardInDb.Power = cardFromApi.Power ?? "0";
+          cardInDb.HP = cardFromApi.HP ?? "0";
+          cardInDb.FrontText = cardFromApi.FrontText;
+          cardInDb.EpicAction = cardFromApi.EpicAction;
+          cardInDb.DoubleSided = cardFromApi.DoubleSided;
+          cardInDb.BackText = cardFromApi.BackText;
+          cardInDb.Rarity = cardFromApi.Rarity;
+          cardInDb.Unique = cardFromApi.Unique;
+          cardInDb.Keywords = cardFromApi.Keywords;
+          cardInDb.Artist = cardFromApi.Artist;
+          cardInDb.FrontArt = cardFromApi.FrontArt;
+          cardInDb.BackArt = cardFromApi.BackArt;
+          cardInDb.VariantType = cardFromApi.VariantType;
+          cardInDb.MarketPrice = cardFromApi.MarketPrice;
+
+          cardsToUpdate.Add(cardInDb);
+        }
+      }
+
+      // Update cards in the database
+      await _cardRepository.UpdateRange(cardsToUpdate);
+
+      return cardsToUpdate.Count;
     }
   }
 }

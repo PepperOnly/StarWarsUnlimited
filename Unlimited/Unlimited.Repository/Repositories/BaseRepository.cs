@@ -51,5 +51,11 @@ namespace Unlimited.Repository.Repositories
         await _dbContext.SaveChangesAsync();
       }
     }
+
+    public async Task UpdateRange(IEnumerable<TEntity> entities)
+    {
+      _dbContext.UpdateRange(entities);
+      await _dbContext.SaveChangesAsync();
+    }
   }
 }

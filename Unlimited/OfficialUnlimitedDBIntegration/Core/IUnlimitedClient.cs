@@ -4,6 +4,6 @@ namespace OfficialUnlimitedDBIntegration.Core
 {
     public interface IUnlimitedClient
     {
-        public Task<IEnumerable<Card>> ImportCardSet(string set);
+        public Task<IEnumerable<Card>> GetCardSet(string set);
     }
 }

@@ -1,6 +1,7 @@
 using ApiAuth;
 using ApiAuth.Models;
 using Asp.Versioning;
+using FinancialHelper.Settings;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Unlimited.Api;
@@ -13,7 +14,7 @@ builder.Services.AddControllers();
 
 // Configure Swagger
 builder.Services.ConfigureSwagger(builder.Configuration);
-//Settings for Auth
+//Settings
 builder.Services.Configure<AuthenticationSettings>(builder.Configuration.GetSection("AuthenticationSettings"));
 
 // Add logging

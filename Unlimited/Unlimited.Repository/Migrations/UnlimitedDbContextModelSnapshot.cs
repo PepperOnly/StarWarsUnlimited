@@ -24,11 +24,9 @@ namespace Unlimited.Repository.Migrations
 
             modelBuilder.Entity("Models.Card", b =>
                 {
-                    b.Property<int>("Set")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Number")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<int[]>("Arenas")
                         .IsRequired()
@@ -72,13 +70,17 @@ namespace Unlimited.Repository.Migrations
                         .HasColumnType("text")
                         .HasDefaultValue("0");
 
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
                     b.Property<int[]>("Keywords")
                         .HasColumnType("integer[]");
 
+                    b.Property<decimal?>("MarketPrice")
+                        .HasColumnType("numeric");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Number")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -91,6 +93,9 @@ namespace Unlimited.Repository.Migrations
                     b.Property<string>("Rarity")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Set")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Subtitle")
                         .IsRequired()
@@ -108,7 +113,11 @@ namespace Unlimited.Repository.Migrations
                     b.Property<bool>("Unique")
                         .HasColumnType("boolean");
 
-                    b.HasKey("Set", "Number");
+                    b.Property<string>("VariantType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Cards");
                 });
@@ -119,14 +128,19 @@ namespace Unlimited.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("OwnerId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
-
                     b.ToTable("Collections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c94bd745-58f3-4e91-b787-1288252d0b17"),
+                            UserId = new Guid("b0ac4c00-af6e-4eb4-b89f-67e593e1d644")
+                        });
                 });
 
             modelBuilder.Entity("Models.CollectionCard", b =>
@@ -135,17 +149,10 @@ namespace Unlimited.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("CardMake")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CardId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("CardSet")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("CollectionId")
+                    b.Property<Guid>("CollectionId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
@@ -156,11 +163,32 @@ namespace Unlimited.Repository.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CardId");
+
                     b.HasIndex("CollectionId");
 
-                    b.HasIndex("CardSet", "CardNumber");
-
                     b.ToTable("CollectionCards");
+                });
+
+            modelBuilder.Entity("Models.CurrencyData", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Currency");
                 });
 
             modelBuilder.Entity("Models.User", b =>
@@ -183,36 +211,29 @@ namespace Unlimited.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4409c495-2995-48f3-ac08-0a126bd07042"),
+                            Id = new Guid("b0ac4c00-af6e-4eb4-b89f-67e593e1d644"),
                             AuthId = 1,
                             Email = "admin@unlimited.co.za"
                         });
                 });
 
-            modelBuilder.Entity("Models.Collection", b =>
+            modelBuilder.Entity("Models.CollectionCard", b =>
                 {
-                    b.HasOne("Models.User", "Owner")
+                    b.HasOne("Models.Card", "Card")
                         .WithMany()
-                        .HasForeignKey("OwnerId")
+                        .HasForeignKey("CardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("Models.CollectionCard", b =>
-                {
-                    b.HasOne("Models.Collection", null)
+                    b.HasOne("Models.Collection", "Collection")
                         .WithMany("Cards")
-                        .HasForeignKey("CollectionId");
-
-                    b.HasOne("Models.Card", "Card")
-                        .WithMany()
-                        .HasForeignKey("CardSet", "CardNumber")
+                        .HasForeignKey("CollectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Card");
+
+                    b.Navigation("Collection");
                 });
 
             modelBuilder.Entity("Models.Collection", b =>

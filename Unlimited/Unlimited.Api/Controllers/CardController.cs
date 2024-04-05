@@ -65,6 +65,22 @@ namespace Unlimited.Api.Controllers
       }
     }
 
+    [MapToApiVersion(1)]
+    [HttpPost]    
+    public async Task<IActionResult> UpdateCardSet(UpdateCardSet request)
+    {
+      try
+      {
+        var updatedcards = await _cardService.UpdateCardsBySet(request.Set);
+        return Ok($"{updatedcards} Cards added successfully");
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, $"Error updating cards, set: {request.Set}");
+        return StatusCode(500, $"Error updating cards, set: {request.Set}");
+      }
+    }
+
     /// <summary>
     /// Returns all cards in the system.
     /// </summary>

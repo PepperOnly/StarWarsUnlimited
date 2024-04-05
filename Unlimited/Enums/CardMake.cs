@@ -6,6 +6,6 @@ namespace Enums
   public enum CardMake
   {
     Normal = 1,
-    Foil = 2    
+    Hyperspace = 2    
   }
 }

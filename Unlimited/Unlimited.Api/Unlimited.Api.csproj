@@ -37,6 +37,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiAuth\ApiAuth.csproj" />
+    <ProjectReference Include="..\CurrencyApiIntegration\CurrencyApiIntegration.csproj" />
+    <ProjectReference Include="..\FinancialHelper\FinancialHelper.csproj" />
     <ProjectReference Include="..\Unlimited.Repository\Unlimited.Repository.csproj" />
     <ProjectReference Include="..\Unlimited.Service\Unlimited.Service.csproj" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace OfficialUnlimitedDBIntegration.Core
+﻿namespace ApiHelper.Core
 {
   public interface IApiClient
   {

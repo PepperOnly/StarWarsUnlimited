@@ -33,7 +33,9 @@ namespace OfficialUnlimitedDBIntegration.Helpers
           Keywords = importedCard.Keywords?.Select(keywordStr => StringToEnum<CardKeyword>(keywordStr)).ToList(),
           Artist = importedCard.Artist,
           FrontArt = importedCard.FrontArt,
-          BackArt = importedCard.BackArt
+          BackArt = importedCard.BackArt,
+          VariantType = importedCard.VariantType,
+          MarketPrice = importedCard.MarketPrice
         };
       }
     }

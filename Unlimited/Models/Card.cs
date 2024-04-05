@@ -12,10 +12,8 @@ namespace Models
       Arenas = new List<CardArena>();
       Keywords = new List<CardKeyword>();
     }
-
-    [Key]
-    public CardSet Set { get; set; }
-    [Key]
+   
+    public CardSet Set { get; set; }    
     public string Number { get; set; }
     public string Name { get; set; }
     public string Subtitle { get; set; }
@@ -36,5 +34,7 @@ namespace Models
     public string Artist { get; set; }
     public string FrontArt { get; set; }
     public string? BackArt { get; set; }
+    public string VariantType { get; set; }
+    public decimal? MarketPrice { get; set; } 
   }
 }
